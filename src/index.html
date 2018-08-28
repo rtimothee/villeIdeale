@@ -10,5 +10,17 @@
 </head>
 <body>
   <app-root></app-root>
+
+  <script type="text/javascript">
+    window.mapIsReady = false;
+    function initMap() {
+      window.mapIsReady = true;
+      const event = document.createEvent('Event');
+      event.initEvent('initMap', true, true);
+      document.dispatchEvent(event);
+    }
+  </script>
+  <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCzCJuAj-mFhCvv0-p3E6zyhM7tzLCGzzA&callback=initMap"
+          type="text/javascript"></script>
 </body>
 </html>

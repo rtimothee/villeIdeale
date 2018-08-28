@@ -1,13 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './/app-routing.module';
-import { SearchComponent } from './search/search.component';
-import { MenuComponent } from './menu/menu.component';
-import { HeaderComponent } from './header/header.component';
-import { MapComponent } from './map/map.component';
-import { DetailsComponent } from './details/details.component';
+import {APP_BASE_HREF} from "@angular/common";
+
+
+import { SearchComponent } from './components/search/search.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MapComponent } from './components/map/map.component';
+import { DetailsComponent } from './components/details/details.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import {AppLoadService} from "./services/app-load.service";
+import {ConfigService} from "./services/config.service";
+import {HttpClientModule} from "@angular/common/http";
+
+
+export function init_app(appLoadService: AppLoadService) {
+  return () => appLoadService.load();
+}
 
 @NgModule({
   declarations: [
@@ -20,9 +32,20 @@ import { DetailsComponent } from './details/details.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: APP_BASE_HREF, useValue: '/'},
+    {
+      provide: APP_INITIALIZER,
+      useFactory: init_app,
+      deps: [AppLoadService, ConfigService],
+      multi: true
+    },
+    AppLoadService,
+    ConfigService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
