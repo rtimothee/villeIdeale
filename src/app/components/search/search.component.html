@@ -1,2 +1,3 @@
-<app-map></app-map>
-<app-details></app-details>
+<app-map (city)="updateCity($event)"></app-map>
+<app-details [city]="currentCity"></app-details>
+<pre>{{currentCity|json}}</pre>

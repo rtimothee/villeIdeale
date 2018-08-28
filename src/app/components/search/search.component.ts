@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  currentCity: any = null;
 
-  constructor() { }
+  constructor(private ref: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
+  }
+
+  updateCity(city: any): void {
+    this.currentCity = city;
+    console.log(city);
+    this.ref.detectChanges();
   }
 
 }
