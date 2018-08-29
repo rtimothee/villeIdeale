@@ -1,20 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import {APP_BASE_HREF} from "@angular/common";
+import {AppComponent} from './app.component';
+import {APP_BASE_HREF} from '@angular/common';
 
 
-import { SearchComponent } from './components/search/search.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { HeaderComponent } from './components/header/header.component';
-import { MapComponent } from './components/map/map.component';
-import { DetailsComponent } from './components/details/details.component';
+import {SearchComponent} from './components/search/search.component';
+import {MenuComponent} from './components/menu/menu.component';
+import {HeaderComponent} from './components/header/header.component';
+import {MapComponent} from './components/map/map.component';
+import {DetailsComponent} from './components/details/details.component';
 
-import { AppRoutingModule } from './app-routing.module';
-import {AppLoadService} from "./services/app-load.service";
-import {ConfigService} from "./services/config.service";
-import {HttpClientModule} from "@angular/common/http";
+import {AppRoutingModule} from './app-routing.module';
+import {AppLoadService} from './services/app-load.service';
+import {ConfigService} from './services/config.service';
+import {HttpClientModule} from '@angular/common/http';
+import {CityDatasService} from './services/city-datas.service';
 
 
 export function init_app(appLoadService: AppLoadService) {
@@ -44,8 +45,10 @@ export function init_app(appLoadService: AppLoadService) {
       multi: true
     },
     AppLoadService,
-    ConfigService
+    ConfigService,
+    CityDatasService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
