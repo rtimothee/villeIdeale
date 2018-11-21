@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {CityDatasService} from '../../services/city-datas.service';
+import {Town} from '../../models/town/town';
 
 @Component({
   selector: 'app-details',
@@ -7,7 +8,7 @@ import {CityDatasService} from '../../services/city-datas.service';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit, OnChanges {
-  @Input() city: any;
+  @Input() city: Town;
 
   constructor(private cd: CityDatasService) { }
 

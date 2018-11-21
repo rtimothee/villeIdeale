@@ -1,3 +1,6 @@
-<app-map (city)="updateCity($event)"></app-map>
-<app-details [city]="currentCity"></app-details>
-<pre>{{currentCity|json}}</pre>
+<app-map></app-map>
+<app-details [city]="town$"></app-details>
+<div *ngIf="town$ | async as town">
+{{town.name}}
+<pre>{{town}}</pre>
+</div>

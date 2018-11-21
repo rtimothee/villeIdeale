@@ -1,4 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Town} from '../../models/town/town';
+import {select} from '@angular-redux/store';
 
 @Component({
   selector: 'app-search',
@@ -6,18 +9,12 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  currentCity: any = null;
+  @select() readonly town$: Observable<Town>;
 
-  constructor(private ref: ChangeDetectorRef) {
+  constructor() {
   }
 
   ngOnInit() {
-  }
-
-  updateCity(city: any): void {
-    this.currentCity = city;
-    console.log(city);
-    this.ref.detectChanges();
   }
 
 }

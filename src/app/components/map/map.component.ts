@@ -1,6 +1,10 @@
+/// <reference types="@types/googlemaps" />
+
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {} from '@types/googlemaps';
-import {forEach} from '../../../../node_modules/@angular/router/src/utils/collection';
+import {Town} from '../../models/town/town';
+import {IAppState} from '../../store';
+import {NgRedux} from '@angular-redux/store';
+import {TownActions} from '../../models/town/town.action';
 
 
 @Component({
@@ -21,7 +25,7 @@ export class MapComponent implements OnInit {
 
   @ViewChild('gmap') gmapElement: any;
 
-  constructor() {
+  constructor(private ngRedux: NgRedux<IAppState>, private townActions: TownActions) {
   }
 
   ngOnInit() {
@@ -39,10 +43,12 @@ export class MapComponent implements OnInit {
     this.geocoder = new google.maps.Geocoder();
 
     this.map.addListener('click', (e) => {
-      this.geocoder.geocode({'latLng': e.latLng}, (results, status) => {
+      this.geocoder.geocode({'location': e.latLng}, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
-          const city = this.searchCityInGoogleDatas(results);
-          this.city.emit(Object.assign({}, {lat: e.latLng.lat(), lng: e.latLng.lng()}, city));
+          const datas = this.searchCityInGoogleDatas(results);
+          console.log('click : ', datas);
+          const city = new Town(datas.city, e.latLng.lat(), e.latLng.lng(), datas.department, datas.zipcode, datas.region);
+          this.ngRedux.dispatch(this.townActions.changeTown(city));
         }
       });
     });
